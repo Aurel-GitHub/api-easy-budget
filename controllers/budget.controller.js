@@ -35,8 +35,8 @@ exports.updateBudget = (req, res) => {
         .then((budget) => {
             const token = req.headers.authorization.split(' ')[1];
             const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-            const userId = decodedToken.userId;
-            const isAuthorized = budget.userId == userId;
+            const user = decodedToken.userId;
+            const isAuthorized = budget.user == user;
 
             if (!isAuthorized) {
                 res.status(401).json({ message: 'non autorisé' });
@@ -66,22 +66,10 @@ exports.getOneBudgetById = (req, res) => {
 };
 
 exports.getAllBudgetsByUserId = (req, res) => {
-    Budget.find()
+    Budget.find({ _id: req.params.id })
         .where('user')
-        .then((budget) => {
-            const token = req.headers.authorization.split(' ')[1];
-            const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-            const userId = decodedToken.userId;
-            const isAuthorized = budget.userId == userId;
-
-            if (!isAuthorized) {
-                res.status(401).json({ message: 'non autorisé' });
-            } else {
-                Budget.deleteOne({ _id: req.params.id })
-                    .then((budgets) => res.status(200).json(budgets))
-                    .catch((error) => res.status(400).json({ error }));
-            }
-        })
+        .equals(req.params.id)
+        .then((budget) => res.status(200).json(budget))
         .catch((error) => res.status(401).json({ error }));
 };
 
@@ -95,8 +83,8 @@ exports.deleteBudget = (req, res) => {
         .then((budget) => {
             const token = req.headers.authorization.split(' ')[1];
             const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-            const userId = decodedToken.userId;
-            const isAuthorized = budget.userId == userId;
+            const user = decodedToken.userId;
+            const isAuthorized = budget.user == user;
 
             if (!isAuthorized) {
                 res.status(401).json({ message: 'non autorisé' });
