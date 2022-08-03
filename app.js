@@ -7,7 +7,7 @@ const userRoutes = require('./routes/user.route');
 const budgetRoutes = require('./routes/budget.route');
 const expenseRoutes = require('./routes/expense.route');
 const revenueRoutes = require('./routes/revenue.route');
-
+const rateLimiter = require('./middleware/rateLimiter');
 app.use(express.json());
 
 mongoose
@@ -33,6 +33,8 @@ app.use((req, res, next) => {
     );
     next();
 });
+
+app.use(rateLimiter);
 
 app.use('/api/auth', userRoutes);
 app.use('/api/budget', budgetRoutes);
