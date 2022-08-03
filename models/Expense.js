@@ -6,8 +6,8 @@ const expenseSchema = mongoose.Schema({
     isFixed: { type: Boolean, required: true, default: false },
     isVariable: { type: Boolean, required: true, default: false },
     hasPassed: { type: Boolean, required: true, default: false },
-    datePassed: { type: Date, required: false },
-    enDateIsFixed: { type: Date, required: false },
+    datePassed: { type: Date, required: false, default: false },
+    enDateIsFixed: { type: Date, required: false, default: false },
     comment: { type: String, required: false },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     budget: {
