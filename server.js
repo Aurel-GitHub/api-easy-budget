@@ -23,9 +23,7 @@ function normalizePort(val) {
 }
 
 const port = normalizePort(process.env.PORT_DEFAULT || process.env.PORT);
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static());
-}
+
 app.set('port', process.env.PORT_DEFAULT || process.env.PORT);
 
 /**
