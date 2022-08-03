@@ -18,7 +18,7 @@ mongoose
         useUnifiedTopology: true,
     })
     .then(() => console.log('Successful connection to MongoDB!'))
-    .catch(() => console.log('Connection to MongoDB failed!'));
+    .catch((error) => console.log('Connection to MongoDB failed!', error));
 
 app.use(helmet());
 app.use(limiter);
