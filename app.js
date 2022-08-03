@@ -37,7 +37,10 @@ app.use((req, res, next) => {
     );
     next();
 });
-
+app.get('/', (req, res, next) => {
+    res.json({ message: 'Hello from API' });
+    next();
+});
 app.use('/api/auth', userRoutes);
 app.use('/api/budget', budgetRoutes);
 app.use('/api/expense', expenseRoutes);
