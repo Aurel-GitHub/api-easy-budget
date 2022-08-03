@@ -3,11 +3,13 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const helmet = require('helmet');
+const limiter = require('./middleware/rateLimiter');
 const userRoutes = require('./routes/user.route');
 const budgetRoutes = require('./routes/budget.route');
 const expenseRoutes = require('./routes/expense.route');
 const revenueRoutes = require('./routes/revenue.route');
-const rateLimiter = require('./middleware/rateLimiter');
+
 app.use(express.json());
 
 mongoose
@@ -21,6 +23,8 @@ mongoose
     .then(() => console.log('Successful connection to MongoDB!'))
     .catch(() => console.log('Connection to MongoDB failed!'));
 
+app.use(helmet());
+app.use(limiter);
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
@@ -33,8 +37,6 @@ app.use((req, res, next) => {
     );
     next();
 });
-
-app.use(rateLimiter);
 
 app.use('/api/auth', userRoutes);
 app.use('/api/budget', budgetRoutes);
