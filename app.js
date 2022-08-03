@@ -13,7 +13,7 @@ const revenueRoutes = require('./routes/revenue.route');
 app.use(express.json());
 
 mongoose
-    .connect(process.env.MONGO_URI, {
+    .connect(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
