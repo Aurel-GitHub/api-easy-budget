@@ -4,8 +4,6 @@ require('dotenv').config();
 const http = require('http');
 const app = require('./app');
 
-app.set('port', process.env.DEFAULT_PORT || process.env.PORT);
-
 /**
  * sends a valid port, whether provided as a number, a false value or a string.
  *
