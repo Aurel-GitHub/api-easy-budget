@@ -58,7 +58,7 @@ exports.updateExpense = (req, res) => {
 };
 
 /**
- * get one expense by userId
+ * get one expense by ID
  * @param {Express.Request} req
  * @param {Express.Response} res
  */
