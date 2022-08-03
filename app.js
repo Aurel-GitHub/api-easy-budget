@@ -13,13 +13,10 @@ const revenueRoutes = require('./routes/revenue.route');
 app.use(express.json());
 
 mongoose
-    .connect(
-        `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.btqfz.mongodb.net/?retryWrites=true&w=majority`,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        }
-    )
+    .connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then(() => console.log('Successful connection to MongoDB!'))
     .catch(() => console.log('Connection to MongoDB failed!'));
 
