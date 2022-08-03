@@ -65,5 +65,5 @@ server.on('listening', () => {
         typeof address === 'string' ? `pipe ${address}` : `port ${port}`;
     console.log(`Listening on ${bind}`);
 });
-
-server.listen(port);
+console.log('>>>>>>>>>>>>>>>>>>>>', process.env.ENV);
+server.listen(process.env.ENV === 'DEV' ? port : process.env.URL_PROD);
