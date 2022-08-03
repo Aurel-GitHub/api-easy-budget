@@ -1,5 +1,6 @@
 const Budget = require('../models/Budget');
 const jwt = require('jsonwebtoken');
+const { Types } = require('mongoose');
 
 /**
  * create a budget
@@ -55,7 +56,7 @@ exports.updateBudget = (req, res) => {
 };
 
 /**
- * get many budgets by userId
+ * get one budget by userId
  * @param {Express.Request} req
  * @param {Express.Response} res
  */
@@ -65,10 +66,14 @@ exports.getOneBudgetById = (req, res) => {
         .catch((error) => res.status(404).json({ error }));
 };
 
+/**
+ * get many budgets by userId
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ */
 exports.getAllBudgetsByUserId = (req, res) => {
-    Budget.find({ _id: req.params.id })
-        .where('user')
-        .equals(req.params.id)
+    Budget.find({ user: new Types.ObjectId(req.params.id) })
+        .exec()
         .then((budget) => res.status(200).json(budget))
         .catch((error) => res.status(401).json({ error }));
 };
