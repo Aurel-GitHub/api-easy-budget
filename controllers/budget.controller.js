@@ -21,7 +21,7 @@ exports.createBudget = (req, res) => {
     budget
         .save(budget)
         .then(() =>
-            res.status(201).json({ message: 'Budget enregistré !', budget })
+            res.status(201).json({ message: 'Budget saved !', budget })
         )
         .catch((error) => res.status(400).json({ error }));
 };
@@ -40,14 +40,14 @@ exports.updateBudget = (req, res) => {
             const isAuthorized = budget.user == user;
 
             if (!isAuthorized) {
-                res.status(401).json({ message: 'non autorisé' });
+                res.status(401).json({ message: 'Not authorized' });
             } else {
                 Budget.updateOne(
                     { _id: req.params.id },
                     { ...req.body, _id: req.params.id }
                 )
                     .then(() => {
-                        res.status(200).json({ message: 'Budget modifié' });
+                        res.status(200).json({ message: 'Budget updated' });
                     })
                     .catch((error) => res.status(400).json({ error }));
             }
@@ -92,11 +92,11 @@ exports.deleteBudget = (req, res) => {
             const isAuthorized = budget.user == user;
 
             if (!isAuthorized) {
-                res.status(401).json({ message: 'non autorisé' });
+                res.status(401).json({ message: 'Not authorized' });
             } else {
                 Budget.deleteOne({ _id: req.params.id })
                     .then(() =>
-                        res.status(200).json({ message: 'Budget supprimé' })
+                        res.status(200).json({ message: 'Budget deleted' })
                     )
                     .catch((error) => res.status(400).json({ error }));
             }

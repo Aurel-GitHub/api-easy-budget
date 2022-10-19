@@ -21,7 +21,7 @@ exports.createRevenue = (req, res) => {
     revenue
         .save(revenue)
         .then(() =>
-            res.status(201).json({ message: 'Revenue enregistré !', revenue })
+            res.status(201).json({ message: 'Revenue saved !', revenue })
         )
         .catch((error) => res.status(400).json({ error }));
 };
@@ -40,14 +40,14 @@ exports.updateRevenue = (req, res) => {
             const isAuthorized = revenue.user == user;
 
             if (!isAuthorized) {
-                res.status(401).json({ message: 'non autorisé' });
+                res.status(401).json({ message: 'Not authorized' });
             } else {
                 Revenue.updateOne(
                     { _id: req.params.id },
                     { ...req.body, _id: req.params.id }
                 )
                     .then(() => {
-                        res.status(200).json({ message: 'Revenue modifié' });
+                        res.status(200).json({ message: 'Revenue updated' });
                     })
                     .catch((error) => res.status(400).json({ error }));
             }
@@ -104,11 +104,11 @@ exports.deleteRevenue = (req, res) => {
             const isAuthorized = revenue.user == user;
 
             if (!isAuthorized) {
-                res.status(401).json({ message: 'non autorisé' });
+                res.status(401).json({ message: 'Not authorized' });
             } else {
                 Revenue.deleteOne({ _id: req.params.id })
                     .then(() =>
-                        res.status(200).json({ message: 'Revenue supprimé' })
+                        res.status(200).json({ message: 'Revenue deleted' })
                     )
                     .catch((error) => res.status(400).json({ error }));
             }

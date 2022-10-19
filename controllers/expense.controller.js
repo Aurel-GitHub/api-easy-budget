@@ -21,7 +21,7 @@ exports.createExpense = (req, res) => {
     expense
         .save(expense)
         .then(() =>
-            res.status(201).json({ message: 'Dépense  enregistré !', expense })
+            res.status(201).json({ message: 'Expense  saved !', expense })
         )
         .catch((error) => res.status(400).json({ error }));
 };
@@ -40,7 +40,7 @@ exports.updateExpense = (req, res) => {
             const isAuthorized = expense.user == user;
 
             if (!isAuthorized) {
-                res.status(401).json({ message: 'non autorisé' });
+                res.status(401).json({ message: 'Not authorized' });
             } else {
                 Expense.updateOne(
                     { _id: req.params.id },
@@ -48,7 +48,7 @@ exports.updateExpense = (req, res) => {
                 )
                     .then(() => {
                         res.status(200).json({
-                            message: 'Dépense modifié',
+                            message: 'Expense updated',
                         });
                     })
                     .catch((error) => res.status(400).json({ error }));
@@ -106,11 +106,11 @@ exports.deleteExpense = (req, res) => {
             const isAuthorized = expense.user == user;
 
             if (!isAuthorized) {
-                res.status(401).json({ message: 'non autorisé' });
+                res.status(401).json({ message: 'Not authorized' });
             } else {
                 Expense.deleteOne({ _id: req.params.id })
                     .then(() =>
-                        res.status(200).json({ message: 'Dépense supprimé' })
+                        res.status(200).json({ message: 'Expense deleted' })
                     )
                     .catch((error) => res.status(400).json({ error }));
             }
